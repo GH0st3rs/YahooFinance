@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-import requests
 import json
 from argparse import ArgumentParser
+
+import requests
 
 
 def parge_args():
@@ -93,12 +94,12 @@ def getStatus(symbol):
             return config[item]['purchased']
 
 
-def addSymbol(symbol, config, purchased, notify):
-    config[symbol] = {
+def addSymbol(symbol, cfg, purchased, notify):
+    cfg[symbol] = {
         'notify': notify,
         'purchased': purchased
     }
-    return config
+    return cfg
 
 
 def main():
@@ -120,7 +121,7 @@ def main():
     data['fields'] = ','.join(FIELDS)
     data['symbols'] = ','.join(SYMBOLS)
 
-    resp = requests.get(URL, data).json()['quoteResponse']['result']
+    resp = requests.get(URL, params=data, headers={'User-Agent': 'curl'}).json()['quoteResponse']['result']
     parseResp(resp)
 
 
