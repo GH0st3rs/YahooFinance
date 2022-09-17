@@ -39,15 +39,16 @@ config = {}
 
 
 def getSymbolPrint(name, price, diff, percent, marketState, status):
+    column_offsets = [10, 450, 540, 610]
     output = ''
     if status:
-        output += '${offset 10}${font Ubuntu:size=12:normal}${color4}%s'  # name
+        output += '${offset ' + column_offsets[0] + '}${font Ubuntu:size=12:normal}${color4}%s'  # name
     else:
-        output += '${offset 10}${font Ubuntu:size=12:normal}${color1}%s'  # name
-    output += '${goto 250}${font Ubuntu:size=12:bold}${color1}%.2f'  # price
+        output += '${offset ' + column_offsets[0] + '}${font Ubuntu:size=12:normal}${color1}%s'  # name
+    output += '${goto ' + column_offsets[1] + '}${font Ubuntu:size=12:bold}${color1}%.2f'  # price
     color = 'color6' if diff < 0 else 'color5'
-    output += '${goto 340}${font Ubuntu:size=12:normal}${PRICE_COLOR}%.2f'  # diff
-    output += '${goto 410}${font Ubuntu:size=12:normal}(${PRICE_COLOR}%.2f%%)'  # percent
+    output += '${goto ' + column_offsets[2] + '}${font Ubuntu:size=12:normal}${PRICE_COLOR}%.2f'  # diff
+    output += '${goto ' + column_offsets[3] + '}${font Ubuntu:size=12:normal}(${PRICE_COLOR}%.2f%%)'  # percent
     output = output.replace('PRICE_COLOR', color)
     output += '${alignr}${font Ubuntu:size=12:normal}${color1}%s'  # marketState
     return output % (name, price, diff, percent, marketState)
